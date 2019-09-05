@@ -11,31 +11,30 @@ class LoadingHome extends PureComponent {
 
     async componentDidMount() {
         const token = await AsyncStorage.getItem('Token');
-        console.log(token)
-        // if (token) {
-        //     fetch("http://hr.thenewgym.vn/api/me?token=" + token,{
-        //     method: "GET",
-        //     header:{
-        //         "Accept":"application/json",
-        //         "Content-Type":"application/json"
-        //     },
-        //     })
-        //     .then((response)=>response.json()) // Lấy giá trị reponse, =>response.json() ép repose về kiểu json
-        //     .then((res)=>{
-        //         const id = res.user.id
-        //         this.props.dispatch({ type: 'USERID', id})
-        //         this.props.navigation.navigate('Auth')
-        //     })
-        //     .catch((error)=>{
-        //         console.log('loi')
-        //     })
+        if (token) {
+            fetch("http://hr.thenewgym.vn/api/me?token=" + token,{
+            method: "GET",
+            header:{
+                "Accept":"application/json",
+                "Content-Type":"application/json"
+            },
+            })
+            .then((response)=>response.json()) // Lấy giá trị reponse, =>response.json() ép repose về kiểu json
+            .then((res)=>{
+                const id = res.user.id
+                this.props.dispatch({ type: 'USERID', id})
+                this.props.navigation.navigate('Auth')
+            })
+            .catch((error)=>{
+                console.log('loi')
+            })
  
             
-        // }else{
-        //     this.setState({ Token: '' });
-        //     alert('Phiên bản đăng nhập đã hết hạn.')
-        //     this.props.navigation.navigate('App')
-        // }
+        }else{
+            this.setState({ Token: '' });
+            alert('Phiên bản đăng nhập đã hết hạn.')
+            this.props.navigation.navigate('App')
+        }
     }
     render() {
         return (
