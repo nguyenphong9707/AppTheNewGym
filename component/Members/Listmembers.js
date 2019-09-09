@@ -18,7 +18,9 @@ class Listmembers extends PureComponent {
             Token:'',
             id_member:'',
             mang:[],
-            Loading:true
+            Loading:true,
+            letter:0,
+            letterApprove:0
         })
     }
 
@@ -41,10 +43,20 @@ class Listmembers extends PureComponent {
             })
             .then((response)=>response.json()) // Lấy giá trị reponse, =>response.json() ép repose về kiểu json
             .then((res)=>{
+                a = 0
+                b = 0
+                res.work_form.map(w=>{
+                    return w.approve == 0 ? a++ : a
+                })
+                res.work_form.map(w=>{
+                    return w.approve == 1 ? b++ : b
+                })
                 this.setState({
                     mang:res.work_form.reverse(),
                     id_member:id_member,
-                    Loading:false
+                    Loading:false,
+                    letter:a,
+                    letterApprove:b
                 })
             })
             .catch((error)=>{
@@ -79,7 +91,17 @@ class Listmembers extends PureComponent {
                         <Icon name="sign-out" size={20} color='black'/>
                     </TouchableOpacity>
                 </View>
-                <View style={{flex:9, backgroundColor:'#d7f6fe', justifyContent:'center', alignItems:'center'}}>
+                <View style={{flex:1, flexDirection:'row', alignItems:'center', backgroundColor:'#d7f6fe'}}>
+                    <View style={{flex:0.5, justifyContent:'center', alignItems:'center', zIndex: 0}}>
+                        <View style={styles.notification}><Text style={{color:'white', fontSize:10}}>{this.state.letter}</Text></View>
+                        <View style={{}}><Text><Icons name="ios-mail" size={32} color='black'/></Text></View>
+                    </View>
+                    <View style={{flex:0.5, justifyContent:'center', alignItems:'center'}}>
+                        <View style={styles.notification}><Text style={{color:'white', fontSize:10}}>{this.state.letterApprove}</Text></View>
+                        <Text><Icons name="ios-checkmark-circle" size={30} color='green'/></Text>
+                    </View>
+                </View>
+                <View style={{flex:8, backgroundColor:'#d7f6fe', justifyContent:'center', alignItems:'center'}}>
                 {
                         this.state.Loading ? <Spinner color={'#05a9d7'} size={40} type={'9CubeGrid'}/>
                         :
@@ -110,5 +132,18 @@ const styles = StyleSheet.create({
       borderBottomColor:'#05a9d7',
       marginTop:Platform.OS === 'ios' ? 30 : 0,
       height:Platform.OS === 'ios' ? 70.05 : 52.5,
+    },
+    notification:{
+        backgroundColor:'red',
+        width: 15,
+        height: 15,
+        borderRadius: 50,
+        borderColor: '#ccc',
+        alignItems:'center',
+        justifyContent:'center',
+        elevation: 8,
+        marginBottom: -14,
+        marginLeft:23,
+        zIndex: 12
     }
 });
