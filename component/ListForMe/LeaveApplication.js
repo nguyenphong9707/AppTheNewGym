@@ -10,6 +10,7 @@ import {
 } from "react-native";
 import { createStackNavigator, createAppContainer } from "react-navigation";
 import Icon from 'react-native-vector-icons/FontAwesome';
+import Icons from 'react-native-vector-icons/Ionicons';
 import {connect} from 'react-redux';
 import LeaveList from './LeaveList';
 import Spinner from 'react-native-spinkit';
@@ -23,7 +24,8 @@ class LeaveApplication extends PureComponent {
             Token:'',
             mang:[],
             Loading:true,
-
+            letter:0,
+            letterApprove:0
         })
     }
 
@@ -40,7 +42,19 @@ class LeaveApplication extends PureComponent {
             })
             .then((response)=>response.json()) // Lấy giá trị reponse, =>response.json() ép repose về kiểu json
             .then((res)=>{
-                this.setState({mang: res.leave_form.reverse(), Loading:false})
+                a = 0
+                b = 0
+                res.leave_form.map(w=>{
+                    return w.approve == 0 ? a++ : a
+                })
+                res.leave_form.map(w=>{
+                    return w.approve == 1 ? b++ : b
+                })
+                this.setState({
+                    mang: res.leave_form.reverse(), 
+                    Loading:false,
+                    letter:a,
+                    letterApprove:b})
             })
             .catch((error)=>{
                 console.log('loi')
@@ -77,6 +91,16 @@ class LeaveApplication extends PureComponent {
                     >
                         <Icon name="sign-out" size={20} color='black'/>
                     </TouchableOpacity>
+                </View>
+                <View style={{flex:1, flexDirection:'row', alignItems:'center', backgroundColor:'#d7f6fe'}}>
+                    <View style={{flex:0.5, justifyContent:'center', alignItems:'center', zIndex: 0}}>
+                        <View style={styles.notification}><Text style={{color:'white', fontSize:10}}>{this.state.letter}</Text></View>
+                        <View style={{}}><Text><Icons name="ios-mail" size={32} color='black'/></Text></View>
+                    </View>
+                    <View style={{flex:0.5, justifyContent:'center', alignItems:'center'}}>
+                        <View style={styles.notification}><Text style={{color:'white', fontSize:10}}>{this.state.letterApprove}</Text></View>
+                        <Text><Icons name="ios-checkmark-circle" size={30} color='green'/></Text>
+                    </View>
                 </View>
                 <View style={styles.body}>
                         {
@@ -117,9 +141,22 @@ const styles = StyleSheet.create({
         marginTop: Platform.OS === 'ios' ? 30 : 0,
     },
     body:{
-        flex:9,
+        flex:8,
         backgroundColor:'#d7f6fe',
         alignItems:'center',
         justifyContent:'center'
+    },
+    notification:{
+        backgroundColor:'red',
+        width: 15,
+        height: 15,
+        borderRadius: 50,
+        borderColor: '#ccc',
+        alignItems:'center',
+        justifyContent:'center',
+        elevation: 8,
+        marginBottom: -14,
+        marginLeft:23,
+        zIndex: 12
     }
 });
