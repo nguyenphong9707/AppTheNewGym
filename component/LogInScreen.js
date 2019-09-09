@@ -25,19 +25,19 @@ class LogInScreen extends Component{
             token:''
         }
     }
-    
+
     Login(){
         var params = {
             username: this.state.UserName,
             password: this.state.PassWord,
         };
-        
+
         var formData = new FormData();
-        
+
         for (var k in params) {
             formData.append(k, params[k]);
         }
- 
+
         fetch("http://hr.thenewgym.vn/api/login",{
             method: "POST",
             header:{
@@ -98,13 +98,13 @@ class LogInScreen extends Component{
                     value={this.state.PassWord}
                     autoCapitalize="none"
                 />
-                <Text style={{color:'red', marginTop:15}}>{this.state.kq}</Text> 
+                <Text style={{color:'red', marginTop:15}}>{this.state.kq}</Text>
                 <TouchableOpacity
                     onPress={()=>{this.Login()}}
                     style={styles.loginbtn}
                 >
                 <Text style={{color:'white', textAlign:'center', fontWeight: 'bold'}}>Đăng Nhập</Text>
-                </TouchableOpacity>                    
+                </TouchableOpacity>
             </View>
         );
     }
@@ -115,6 +115,7 @@ export default LogInScreen;
 
 const styles = StyleSheet.create({
     TextInput:{
+        height:45,
         width:width - 70,
         color:'black',
         borderBottomWidth:2,

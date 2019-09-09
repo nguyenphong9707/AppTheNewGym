@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react'
-import { Text, View, TouchableOpacity, Image, AsyncStorage, FlatList, StyleSheet, Dimensions, ActivityIndicator } from 'react-native'
+import { Text, View, TouchableOpacity, Image, AsyncStorage, FlatList, StyleSheet, Dimensions, ActivityIndicator, Platform } from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Icons from 'react-native-vector-icons/SimpleLineIcons';
 import Spinner from 'react-native-spinkit'
@@ -44,7 +44,7 @@ export default class Members extends PureComponent {
             alert('Phiên bản đăng nhập đã hết hạn.')
         }
     }
-    
+
     _logout =async ()=>{
         await AsyncStorage.setItem('isLoggedIn','0');
         this.props.navigation.navigate('App')
@@ -56,11 +56,11 @@ export default class Members extends PureComponent {
     render() {
         return (
             <View style={{flex:10}}>
-            <View style={{height:52.5, flexDirection:'row', backgroundColor:'white', alignItems:'center', borderBottomWidth:1, borderBottomColor:'#05a9d7'}}>
+            <View style={styles.header}>
                 <TouchableOpacity
                     style={{flex:0.2,paddingLeft:10}}
                     onPress={()=> {this.props.navigation.openDrawer()}}>
-                
+
                     <Icon name="bars" size={20} color='black'/>
                 </TouchableOpacity>
                 <View style={{flex:0.6, justifyContent:'center', alignItems:'center'}}>
@@ -96,7 +96,7 @@ export default class Members extends PureComponent {
                     <Text style={{fontWeight: 'bold',fontSize:15 }}>{this.state.Message}</Text>
                 }
             </View>
-            
+
             </View>
         )
     }
@@ -113,5 +113,15 @@ const styles = StyleSheet.create({
         backgroundColor:'white',
         elevation: 5,
         alignItems:'center'
+    },
+    header:{
+      height:52.5,
+      flexDirection:'row',
+      backgroundColor:'white',
+      alignItems:'center',
+      borderBottomWidth:1,
+      borderBottomColor:'#05a9d7',
+      marginTop:Platform.OS === 'ios' ? 30 : 0,
+      height:Platform.OS === 'ios' ? 70.05 : 52.5,
     }
 })

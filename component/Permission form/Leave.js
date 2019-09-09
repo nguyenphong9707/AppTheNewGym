@@ -11,7 +11,8 @@ import {
     Keyboard,
     Alert,
     Picker,
-    KeyboardAvoidingView
+    KeyboardAvoidingView,
+    Platform
 } from "react-native";
 import { createStackNavigator, createAppContainer } from "react-navigation";
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -89,7 +90,7 @@ class Leave extends PureComponent {
                     return {value: w}
                 })
                 this.setState({dataPicker : a, LoadingPage:false})
-                
+
             })
             .catch((error)=>{
                 console.log(error)
@@ -112,12 +113,12 @@ class Leave extends PureComponent {
 
     _showDateBDConfirm = (date) => {
         moment.locale('vi')
-        this.setState({ 
+        this.setState({
             ngaybd : moment(date).format().substring(0,10),
             checkTimebd: date,
             ShowDayBDVisible:false
         })
-        
+
     }
 
     _showDatekt = () => {
@@ -126,12 +127,12 @@ class Leave extends PureComponent {
 
     _showDateKTConfirm = (date) => {
         moment.locale('vi')
-        this.setState({ 
+        this.setState({
             ngaykt : moment(date).format().substring(0,10),
             checkTimekt: date,
             ShowDayKTVisible:false
         })
-        
+
     }
 
     hideDateTimePicker=()=>{
@@ -171,7 +172,7 @@ class Leave extends PureComponent {
     }
 
     _btnsend = () => {
-        
+
         if(this.state.ngaybd === null || this.state.ngaykt === null || this.state.lido + this.state.noidungldk === ''){
             Alert.alert(
                 'Thông báo',
@@ -225,7 +226,7 @@ class Leave extends PureComponent {
                     <TouchableOpacity
                         style={{flex:0.2,paddingLeft:10}}
                         onPress={()=> {this.props.navigation.openDrawer()}}>
-                    
+
                         <Icon name="bars" size={20} color='black'/>
                     </TouchableOpacity>
                     <View style={{flex:0.6, justifyContent:'center', alignItems:'center'}}>
@@ -242,7 +243,7 @@ class Leave extends PureComponent {
                 {this.state.LoadingPage ? <Spinner color={'#05a9d7'} size={40} type={'9CubeGrid'}/> :
                     <View style={{flex:9}}>
                     <View style={{flex:1}}>
-                    <Text style={{textAlign:'center', color:'#555859', fontSize:25, marginTop:20, fontWeight: 'bold'}}>Đơn nghỉ phép</Text>  
+                    <Text style={{textAlign:'center', color:'#555859', fontSize:25, marginTop:20, fontWeight: 'bold'}}>Đơn nghỉ phép</Text>
                     </View>
                     <View style={{flex:8, alignItems:'center', paddingTop:30}}>
                     <View style={{flexDirection:'row'}}>
@@ -348,22 +349,23 @@ const styles = StyleSheet.create({
         flex: 10,
     },
     header:{
-        height:52.5,
-        flexDirection:'row', 
-        backgroundColor:'white', 
-        alignItems:'center', 
-        borderBottomWidth:1, 
+        marginTop:Platform.OS === 'ios' ? 30 : 0,
+        height:Platform.OS === 'ios' ? 70.05 : 52.5,
+        flexDirection:'row',
+        backgroundColor:'white',
+        alignItems:'center',
+        borderBottomWidth:1,
         borderBottomColor:'#05a9d7'
     },
     body:{
-        flex:9, 
+        flex:9,
         backgroundColor:'#d7f6fe',
         justifyContent:'center',
         alignItems:'center'
     },
     TextInputTime:{
-
-        width:width - 220,
+        height:Platform.OS === 'ios' ? 45: 0,
+        width:width - 225,
         color:'black',
         borderBottomWidth:1,
         borderBottomColor:'#05a9d7',
@@ -373,7 +375,7 @@ const styles = StyleSheet.create({
     },
     Dropdown:{
         width : width * 0.86,
-        height : width * 0.118 , 
+        height : width * 0.118 ,
         borderBottomWidth:1,
         borderBottomColor:'#05a9d7',
         backgroundColor:'rgba(255, 255, 255, 1)',
@@ -391,7 +393,9 @@ const styles = StyleSheet.create({
         backgroundColor:'rgba(255, 255, 255, 1)',
         borderRadius:10,
         textAlignVertical:'top',
-        marginTop:10
+        marginTop:10,
+        paddingLeft:Platform.OS === 'ios' ? 10: 0,
+        paddingTop:Platform.OS === 'ios' ? 10: 0,
     },
     btn:{
         backgroundColor:'rgba(5, 169, 215, 0.7)',

@@ -4,7 +4,8 @@ import { View,
     StyleSheet,
     AsyncStorage,
     TouchableOpacity,
-    Image } from 'react-native'
+    Image,
+    Platform } from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Icons from 'react-native-vector-icons/Ionicons';
 import ViewListMem from './ViewListMem'
@@ -49,8 +50,8 @@ class Listmembers extends PureComponent {
             .catch((error)=>{
                 console.log(error)
             })
- 
-            
+
+
         }else{
             this.setState({ Token: '' });
             alert('Phiên bản đăng nhập đã hết hạn.')
@@ -61,11 +62,11 @@ class Listmembers extends PureComponent {
         const { navigation } = this.props;
         return (
             <View style={styles.container}>
-                <View style={{flex:1, flexDirection:'row', backgroundColor:'white', alignItems:'center', borderBottomWidth:1, borderBottomColor:'#05a9d7'}}>
+                <View style={styles.header}>
                     <TouchableOpacity
                         style={{flex:0.2,paddingLeft:10}}
                         onPress={()=> this.props.navigation.navigate('Member')}>
-                    
+
                         <Icons name="md-arrow-round-back" size={25} color='black'/>
                     </TouchableOpacity>
                     <View style={{flex:0.6, justifyContent:'center', alignItems:'center'}}>
@@ -80,7 +81,7 @@ class Listmembers extends PureComponent {
                 </View>
                 <View style={{flex:9, backgroundColor:'#d7f6fe', justifyContent:'center', alignItems:'center'}}>
                 {
-                        this.state.Loading ? <Spinner color={'#05a9d7'} size={40} type={'9CubeGrid'}/> 
+                        this.state.Loading ? <Spinner color={'#05a9d7'} size={40} type={'9CubeGrid'}/>
                         :
                     <ViewListMem
                         id_member = {this.state.id_member}
@@ -89,7 +90,7 @@ class Listmembers extends PureComponent {
                     />
                 }
                 </View>
-                
+
             </View>
         );
     }
@@ -99,5 +100,15 @@ export default Listmembers;
 const styles = StyleSheet.create({
     container: {
         flex: 10,
+    },
+    header:{
+      flex:1,
+      flexDirection:'row',
+      backgroundColor:'white',
+      alignItems:'center',
+      borderBottomWidth:1,
+      borderBottomColor:'#05a9d7',
+      marginTop:Platform.OS === 'ios' ? 30 : 0,
+      height:Platform.OS === 'ios' ? 70.05 : 52.5,
     }
 });

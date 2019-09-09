@@ -11,7 +11,8 @@ import {
     Keyboard,
     Alert,
     KeyboardAvoidingView,
-    ScrollView
+    ScrollView,
+    Platform
 } from "react-native";
 import { createStackNavigator, createAppContainer } from "react-navigation";
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -73,7 +74,7 @@ class Business extends PureComponent {
 
     _showtimebdConfirm = (time) => {
         moment.locale('vi')
-        this.setState({ 
+        this.setState({
             giobd : moment(time).format().substring(11,19),
             checkgiobd:time,
             ShowTimeBDVisible:false
@@ -86,12 +87,12 @@ class Business extends PureComponent {
 
     _showtimektConfirm = (time) => {
         moment.locale('vi')
-        this.setState({ 
+        this.setState({
             giokt : moment(time).format().substring(11,19),
             checkgiokt:time,
             ShowTimeKTVisible:false
         })
-        
+
     }
 
     _showDate = () => {
@@ -100,11 +101,11 @@ class Business extends PureComponent {
 
     _showDateConfirm = (date) => {
         moment.locale('vi')
-        this.setState({ 
+        this.setState({
             ngay : moment(date).format().substring(0,10),
             ShowDateVisible:false
         })
-        
+
     }
 
     hideDateTimePicker=()=>{
@@ -168,7 +169,7 @@ class Business extends PureComponent {
                 'Thời gian không hợp lệ.'
             )
         }
-        
+
     }
 
     render() {
@@ -178,7 +179,7 @@ class Business extends PureComponent {
                     <TouchableOpacity
                         style={{flex:0.2,paddingLeft:10}}
                         onPress={()=> {this.props.navigation.openDrawer()}}>
-                    
+
                         <Icon name="bars" size={20} color='black'/>
                     </TouchableOpacity>
                     <View style={{flex:0.6, justifyContent:'center', alignItems:'center'}}>
@@ -194,11 +195,11 @@ class Business extends PureComponent {
                 <View style={styles.body}>
                     <View style={{flex:1}}>
                         <Text style={{textAlign:'center', color:'#555859', fontSize:25, marginTop:20, fontWeight: 'bold'}}>Đơn Công Tác</Text>
-                        
+
                     </View>
 
                     <View style={{flex:8, alignItems:'center', paddingTop:30}}>
-                        <View style={{flexDirection:'row'}}>
+                        <View style={{flexDirection:Platform.OS === 'ios'?'column':'row', width:width-50}}>
                             <View>
                             <Text>Từ lúc:</Text>
                             <TouchableOpacity
@@ -222,7 +223,7 @@ class Business extends PureComponent {
                                 is24Hour={true}
                                 />
                             </View>
-                            <View style={{marginLeft:30}}>
+                            <View style={{marginLeft:Platform.OS === 'ios'? 0 : 30, paddingTop:Platform.OS === 'ios' ? 15: 0}}>
                             <Text>Đến lúc:</Text>
                             <TouchableOpacity
                                 onPress={this._showtimekt}
@@ -285,7 +286,7 @@ class Business extends PureComponent {
                         </View>
                         {
                             this.state.Loading ? <Spinner style={{marginTop:30}} color={'#05a9d7'} size={25} type={'Circle'}/> :
-                            <TouchableOpacity 
+                            <TouchableOpacity
                             onPress={this._btnsend}
                             style={styles.btn}>
                                 <View>
@@ -293,8 +294,8 @@ class Business extends PureComponent {
                                 </View>
                             </TouchableOpacity>
                         }
-                        
-                    </View> 
+
+                    </View>
                 </View>
             </View>
         );
@@ -307,26 +308,27 @@ const styles = StyleSheet.create({
         flex: 10,
     },
     header:{
-        height:52.5,
-        flexDirection:'row', 
-        backgroundColor:'white', 
-        alignItems:'center', 
-        borderBottomWidth:1, 
-        borderBottomColor:'#05a9d7'
+        flexDirection:'row',
+        backgroundColor:'white',
+        alignItems:'center',
+        borderBottomWidth:1,
+        borderBottomColor:'#05a9d7',
+        marginTop:Platform.OS === 'ios' ? 30 : 0,
+        height:Platform.OS === 'ios' ? 70.05 : 52.5,
     },
     body:{
-        flex:9, 
+        flex:9,
         backgroundColor:'#d7f6fe'
     },
     TextInputTime:{
-
-        width:width - 220,
+        width:Platform.OS === 'ios' ? width - 50 : width - 230,
         color:'black',
         borderBottomWidth:1,
         borderBottomColor:'#05a9d7',
         backgroundColor:'rgba(255, 255, 255, 1)',
         borderRadius:10,
         paddingLeft:20,
+        height:Platform.OS === 'ios' ? 45: 0,
     },
     TextInputContent:{
         width:width - 50,
@@ -336,13 +338,15 @@ const styles = StyleSheet.create({
         borderBottomColor:'#05a9d7',
         backgroundColor:'rgba(255, 255, 255, 1)',
         borderRadius:10,
-        textAlignVertical:'top'
+        textAlignVertical:'top',
+        paddingLeft:Platform.OS === 'ios' ? 10: 0,
+        paddingTop:Platform.OS === 'ios' ? 10: 0,
     },
     btn:{
         marginTop:30,
         width:width-150,
         height:40,
-        borderWidth:1, 
+        borderWidth:1,
         borderColor:'#05a9d7',
         backgroundColor:'rgba(5, 169, 215, 0.7)',
         borderRadius:10,
