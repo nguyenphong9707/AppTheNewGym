@@ -17,9 +17,9 @@ class LeaveModal extends PureComponent {
                 </View>
                 <View style={{flex:0.1, alignItems:'center', paddingRight:10}}>
                     <Text style={{color: 'gray'}}>Từ: {this.props.daybd}   Đến: {this.props.daykt}</Text>
-                    <Text>Tổng ngày : {this.props.total}</Text>
-                    {this.props.id_replace ? <Text>Người thay thế : {this.props.id_replace}</Text> :
-                    <Text>Người thay thế : ...</Text>}
+                    <Text style={{color: 'gray'}}>Tổng ngày : {this.props.total}</Text>
+                    {this.props.id_replace ? <Text style={{color: 'gray'}}>Người thay thế : {this.props.id_replace}</Text> :
+                    <Text style={{color: 'gray'}}>Người thay thế : ...</Text>}
                 </View>
                 <View style={{flex:0.8, padding:10}}>
                     <Text style={{color: 'gray', marginTop:30}}>&nbsp;{this.props.noidung}</Text>

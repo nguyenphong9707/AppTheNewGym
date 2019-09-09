@@ -79,7 +79,7 @@ class Listmembers extends PureComponent {
                         <Icon name="sign-out" size={20} color='black'/>
                     </TouchableOpacity>
                 </View>
-                <View style={{flex:8, backgroundColor:'#d7f6fe', justifyContent:'center', alignItems:'center'}}>
+                <View style={{flex:9, backgroundColor:'#d7f6fe', justifyContent:'center', alignItems:'center'}}>
                 {
                         this.state.Loading ? <Spinner color={'#05a9d7'} size={40} type={'9CubeGrid'}/>
                         :

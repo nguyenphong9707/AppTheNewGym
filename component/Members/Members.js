@@ -115,13 +115,12 @@ const styles = StyleSheet.create({
         alignItems:'center'
     },
     header:{
-      height:52.5,
       flexDirection:'row',
       backgroundColor:'white',
       alignItems:'center',
       borderBottomWidth:1,
       borderBottomColor:'#05a9d7',
       marginTop:Platform.OS === 'ios' ? 30 : 0,
-      height:Platform.OS === 'ios' ? 70.05 : 52.5,
+      height:Platform.OS === 'ios' ? 70.05 : 57.5,
     }
 })

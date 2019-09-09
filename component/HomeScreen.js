@@ -126,7 +126,7 @@ const styles = StyleSheet.create({
         marginTop: Platform.OS === 'ios' ? 30 : 0,
     },
     body:{
-        flex:8,
+        flex:9,
         backgroundColor:'#d7f6fe',
         alignItems:'center',
         justifyContent:'center'
