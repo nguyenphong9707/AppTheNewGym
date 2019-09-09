@@ -198,7 +198,7 @@ class Business extends PureComponent {
                     </View>
 
                     <View style={{flex:8, alignItems:'center', paddingTop:30}}>
-                        <View style={{flexDirection:'row'}}>
+                        <View style={{flexDirection:'row', width:width-50}}>
                             <View>
                             <Text>Từ lúc:</Text>
                             <TouchableOpacity

@@ -16,6 +16,7 @@ import LeaveApplication from "./ListForMe/LeaveApplication";
 import {connect} from 'react-redux';
 
 class HomeScreen extends Component {
+    
     static navigationOptions = {
         title: 'Home',
         header: null,
@@ -116,12 +117,13 @@ const styles = StyleSheet.create({
     },
     header:{
         flex:1, 
-        flexDirection:'row', 
-        backgroundColor:'white', 
-        alignItems:'center', 
-        borderBottomWidth:1, 
-        borderBottomColor:'#05a9d7'
-    },
+            flexDirection:'row', 
+            backgroundColor:'white', 
+            alignItems:'center', 
+            borderBottomWidth:1, 
+            borderBottomColor:'#05a9d7',
+            marginTop:10
+        },
     body:{
         flex:9, 
         backgroundColor:'#d7f6fe',
