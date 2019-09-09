@@ -231,7 +231,7 @@ class Business extends PureComponent {
                             <View>
                                 <Text>Ngày:</Text>
                                 <TouchableOpacity onPress={this._showDate}>
-                                  <View style={styles.TextInput}><Text style={{marginTop:13, fontSize:15}}>{this.state.ngay}</Text></View>
+                                  <View style={{...styles.TextInput, width:width-50}}><Text style={{marginTop:13, fontSize:15}}>{this.state.ngay}</Text></View>
                                 </TouchableOpacity>
                                 <DateTimePicker
                                     isVisible={this.state.ShowDateVisible}
@@ -301,19 +301,9 @@ const styles = StyleSheet.create({
       backgroundColor:'rgba(255, 255, 255, 1)',
       borderRadius:10,
       paddingLeft:20,
-      height:Platform.OS === 'ios' ? 45: null,
+      height:Platform.OS === 'ios' ? 45: 45,
     },
 
-    TextInputTime:{
-        width:Platform.OS === 'ios' ? width - 50 : width - 220,
-        color:'black',
-        borderBottomWidth:1,
-        borderBottomColor:'#05a9d7',
-        backgroundColor:'rgba(255, 255, 255, 1)',
-        borderRadius:10,
-        paddingLeft:20,
-        height:Platform.OS === 'ios' ? 45: null,
-    },
     TextInputContent:{
         width:width - 50,
         height:100,
@@ -323,8 +313,8 @@ const styles = StyleSheet.create({
         backgroundColor:'rgba(255, 255, 255, 1)',
         borderRadius:10,
         textAlignVertical:'top',
-        paddingLeft:Platform.OS === 'ios' ? 10: 0,
-        paddingTop:Platform.OS === 'ios' ? 10: 0,
+        paddingLeft:Platform.OS === 'ios' ? 10: null,
+        paddingTop:Platform.OS === 'ios' ? 10: null,
     },
     btn:{
         marginTop:30,
