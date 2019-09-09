@@ -17,7 +17,7 @@ import LeaveApplication from "./ListForMe/LeaveApplication";
 import {connect} from 'react-redux';
 
 class HomeScreen extends Component {
-    
+
     static navigationOptions = {
         title: 'Home',
         header: null,
