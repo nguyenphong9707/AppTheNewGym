@@ -202,18 +202,8 @@ class Business extends PureComponent {
                         <View style={{flexDirection:Platform.OS === 'ios'?'column':'row', width:width-50}}>
                             <View>
                             <Text>Từ lúc:</Text>
-                            <TouchableOpacity
-                                onPress={this._showtimebd}
-                            >
-                                <TextInput
-                                style={{...styles.TextInputTime, marginTop:5}}
-                                placeholder={'00:00'}
-                                placeholderTextColor={'gray'}
-                                onChangeText={(giobd) => this.setState({giobd})}
-                                value={this.state.giobd}
-                                autoCapitalize="none"
-                                editable={false}
-                            />
+                            <TouchableOpacity onPress={this._showtimebd}>
+                              <View style={styles.TextInput}><Text style={{marginTop:13, fontSize:15}}>{this.state.giobd}</Text></View>
                             </TouchableOpacity>
                             <DateTimePicker
                                 isVisible={this.state.ShowTimeBDVisible}
@@ -225,18 +215,8 @@ class Business extends PureComponent {
                             </View>
                             <View style={{marginLeft:Platform.OS === 'ios'? 0 : 30, paddingTop:Platform.OS === 'ios' ? 15: 0}}>
                             <Text>Đến lúc:</Text>
-                            <TouchableOpacity
-                                onPress={this._showtimekt}
-                            >
-                                    <TextInput
-                                style={{...styles.TextInputTime, marginTop:5}}
-                                placeholder={'00:00'}
-                                placeholderTextColor={'gray'}
-                                onChangeText={(giokt) => this.setState({giokt})}
-                                value={this.state.giokt}
-                                autoCapitalize="none"
-                                editable={false}
-                            />
+                            <TouchableOpacity onPress={this._showtimekt}>
+                              <View style={styles.TextInput}><Text style={{marginTop:13, fontSize:15}}>{this.state.giokt}</Text></View>
                             </TouchableOpacity>
                             <DateTimePicker
                                 isVisible={this.state.ShowTimeKTVisible}
@@ -250,18 +230,8 @@ class Business extends PureComponent {
                         <View style={{paddingTop:20}}>
                             <View>
                                 <Text>Ngày:</Text>
-                                <TouchableOpacity
-                                    onPress={this._showDate}
-                                >
-                                        <TextInput
-                                    style={{...styles.TextInputTime, marginTop:5, width:width-50}}
-                                    placeholder={'2019-01-01'}
-                                    placeholderTextColor={'gray'}
-                                    onChangeText={(ngay) => this.setState({ngay})}
-                                    value={this.state.ngay}
-                                    autoCapitalize="none"
-                                    editable={false}
-                                />
+                                <TouchableOpacity onPress={this._showDate}>
+                                  <View style={styles.TextInput}><Text style={{marginTop:13, fontSize:15}}>{this.state.ngay}</Text></View>
                                 </TouchableOpacity>
                                 <DateTimePicker
                                     isVisible={this.state.ShowDateVisible}
@@ -274,7 +244,7 @@ class Business extends PureComponent {
                             <View style={{marginTop:20}}>
                                 <Text>Nội dung công tác:</Text>
                                 <TextInput
-                                    style={{...styles.TextInputContent, marginTop:5}}
+                                    style={{...styles.TextInputContent, marginTop:10}}
                                     multiline={true}
                                     placeholder={'...'}
                                     placeholderTextColor={'gray'}
@@ -320,6 +290,20 @@ const styles = StyleSheet.create({
         flex:9,
         backgroundColor:'#d7f6fe'
     },
+    TextInput:{
+      marginTop:10,
+      height:50,
+      width:Platform.OS === 'ios' ? width - 50 : width - 220,
+      color:'black',
+      backgroundColor:"white",
+      borderBottomWidth:1,
+      borderBottomColor:'#05a9d7',
+      backgroundColor:'rgba(255, 255, 255, 1)',
+      borderRadius:10,
+      paddingLeft:20,
+      height:Platform.OS === 'ios' ? 45: null,
+    },
+
     TextInputTime:{
         width:Platform.OS === 'ios' ? width - 50 : width - 220,
         color:'black',
