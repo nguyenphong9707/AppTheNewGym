@@ -5,7 +5,8 @@ import {
     StyleSheet,
     AsyncStorage,
     TouchableOpacity,
-    Image
+    Image,
+    Platform
 } from "react-native";
 import { createStackNavigator, createAppContainer } from "react-navigation";
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -31,7 +32,7 @@ class HomeScreen extends Component {
             Loading:true
         })
     }
- 
+
     async componentDidMount() {
         const token = await AsyncStorage.getItem('Token');
         if (token) {
@@ -53,7 +54,7 @@ class HomeScreen extends Component {
             .catch((error)=>{
                 console.log(error)
             })
-            
+
         }else{
             this.setState({ Token: '' });
             alert('Phiên bản đăng nhập đã hết hạn.')
@@ -74,7 +75,7 @@ class HomeScreen extends Component {
                     <TouchableOpacity
                         style={{flex:0.2,paddingLeft:10}}
                         onPress={()=> {this.props.navigation.openDrawer()}}>
-                    
+
                         <Icon name="bars" size={20} color='black'/>
                     </TouchableOpacity>
                     <View style={{flex:0.6, justifyContent:'center', alignItems:'center'}}>
@@ -89,7 +90,7 @@ class HomeScreen extends Component {
                 </View>
                 <View style={styles.body}>
                     {
-                        this.state.Loading ? <Spinner color={'#05a9d7'} size={40} type={'9CubeGrid'}/> 
+                        this.state.Loading ? <Spinner color={'#05a9d7'} size={40} type={'9CubeGrid'}/>
                         :
                         <MyList
                             id_user = {this.props.MyId}
@@ -98,14 +99,14 @@ class HomeScreen extends Component {
                         />
                     }
                 </View>
-                
+
             </View>
         );
     }
 }
 
 StatetoProps = (state) => {
-    return { 
+    return {
         MyId : state.UserID
     }
 }
@@ -116,16 +117,16 @@ const styles = StyleSheet.create({
         flex: 10,
     },
     header:{
-        flex:1, 
-            flexDirection:'row', 
-            backgroundColor:'white', 
-            alignItems:'center', 
-            borderBottomWidth:1, 
-            borderBottomColor:'#05a9d7',
-            marginTop:10
-        },
+        flex:1,
+        flexDirection:'row',
+        backgroundColor:'white',
+        alignItems:'center',
+        borderBottomWidth:1,
+        borderBottomColor:'#05a9d7',
+        marginTop: Platform.OS === 'ios' ? 30 : 0,
+    },
     body:{
-        flex:9, 
+        flex:9,
         backgroundColor:'#d7f6fe',
         alignItems:'center',
         justifyContent:'center'

@@ -5,7 +5,8 @@ import {
     StyleSheet,
     AsyncStorage,
     TouchableOpacity,
-    Image
+    Image,
+    Platform
 } from "react-native";
 import { createStackNavigator, createAppContainer } from "react-navigation";
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -13,7 +14,7 @@ import {connect} from 'react-redux';
 import LeaveList from './LeaveList';
 import Spinner from 'react-native-spinkit';
 
- 
+
 class LeaveApplication extends PureComponent {
     constructor(props){
         super(props);
@@ -22,10 +23,10 @@ class LeaveApplication extends PureComponent {
             Token:'',
             mang:[],
             Loading:true,
-            
+
         })
-    } 
- 
+    }
+
     async componentDidMount() {
         const token = await AsyncStorage.getItem('Token');
         if (token) {
@@ -44,8 +45,8 @@ class LeaveApplication extends PureComponent {
             .catch((error)=>{
                 console.log('loi')
             })
- 
-            
+
+
         }else{
             this.setState({ Token: '' });
             alert('Phiên bản đăng nhập đã hết hạn.')
@@ -64,7 +65,7 @@ class LeaveApplication extends PureComponent {
                     <TouchableOpacity
                         style={{flex:0.2,paddingLeft:10}}
                         onPress={()=> {this.props.navigation.openDrawer()}}>
-                    
+
                         <Icon name="bars" size={20} color='black'/>
                     </TouchableOpacity>
                     <View style={{flex:0.6, justifyContent:'center', alignItems:'center'}}>
@@ -79,7 +80,7 @@ class LeaveApplication extends PureComponent {
                 </View>
                 <View style={styles.body}>
                         {
-                        this.state.Loading ? <Spinner color={'#05a9d7'} size={40} type={'9CubeGrid'}/> 
+                        this.state.Loading ? <Spinner color={'#05a9d7'} size={40} type={'9CubeGrid'}/>
                         :
                         <LeaveList
                             id_user = {this.props.MyId}
@@ -88,14 +89,14 @@ class LeaveApplication extends PureComponent {
                         />
                     }
                 </View>
-                
+
             </View>
         );
     }
 }
 
 StatetoProps = (state) => {
-    return { 
+    return {
         MyId : state.UserID
     }
 }
@@ -107,15 +108,16 @@ const styles = StyleSheet.create({
         flex: 10,
     },
     header:{
-        flex:1, 
-        flexDirection:'row', 
-        backgroundColor:'white', 
-        alignItems:'center', 
-        borderBottomWidth:1, 
-        borderBottomColor:'#05a9d7'
+        flex:1,
+        flexDirection:'row',
+        backgroundColor:'white',
+        alignItems:'center',
+        borderBottomWidth:1,
+        borderBottomColor:'#05a9d7',
+        marginTop: Platform.OS === 'ios' ? 30 : 0,
     },
     body:{
-        flex:9, 
+        flex:9,
         backgroundColor:'#d7f6fe',
         alignItems:'center',
         justifyContent:'center'
