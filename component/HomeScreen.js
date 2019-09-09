@@ -31,8 +31,8 @@ class HomeScreen extends Component {
             Token:'',
             mang:[],
             Loading:true,
-            letter:14,
-            letterApprove:23
+            letter:0,
+            letterApprove:0
         })
     }
 
