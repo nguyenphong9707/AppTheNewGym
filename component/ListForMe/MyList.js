@@ -36,18 +36,6 @@ export default class MyList extends PureComponent {
     
       componentDidMount(){
         {this.setState({mangList:this.props.Listmang})}
-        a = 0
-        b = 0
-        this.props.Listmang.map(w=>{
-            return w.approve == 0 ? a++ : a
-        })
-        this.props.Listmang.map(w=>{
-            return w.approve == 1 ? b++ : b
-        })
-        this.setState({
-            letter:a,
-            letterApprove:b
-        })
       }
 
     _refresh=()=>{
@@ -60,28 +48,30 @@ export default class MyList extends PureComponent {
             })
             .then((response)=>response.json()) // Lấy giá trị reponse, =>response.json() ép repose về kiểu json
             .then((res)=>{
-                a = 0
-                b = 0
-                res.work_form.map(w=>{
-                    return w.approve == 0 ? a++ : a
-                })
-                res.work_form.map(w=>{
-                    return w.approve == 1 ? b++ : b
-                })
                 this.setState({
                     mangList:res.work_form.reverse(),
-                    letter:a,
-                    letterApprove:b
                 })
             })
             .catch((error)=>{
                 console.log(error)
             })
     }
-    render() {
+    render() { 
+        a = 0
+        b = 0
+        this.state.mangList.map(w=>{
+            return w.approve == 0 ? a++ : a
+        })
+        this.state.mangList.map(w=>{
+            return w.approve == 1 ? b++ : b
+        })
+        this.setState({
+            letter:a,
+            letterApprove:b
+        })
         return (
     <View>
-        <View style={{height: 60, flexDirection:'row', alignItems:'center', backgroundColor:'#d7f6fe'}}>
+        <View style={{height: 60, width:Width, flexDirection:'row', alignItems:'center', backgroundColor:'#d7f6fe'}}>
                     <View style={{flex:0.5, justifyContent:'center', alignItems:'center', zIndex: 0}}>
                         <View style={styles.notification}><Text style={{color:'white', fontSize:10}}>{this.state.letter}</Text></View>
                         <View style={{}}><Text><Icons name="ios-mail" size={32} color='black'/></Text></View>
@@ -170,7 +160,6 @@ const styles = StyleSheet.create({
         borderColor: '#ccc',
         alignItems:'center',
         justifyContent:'center',
-        elevation: 8,
         marginBottom: -14,
         marginLeft:23,
         zIndex: 12
