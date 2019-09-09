@@ -2,8 +2,10 @@ import React, { PureComponent } from 'react'
 import { Text, View, FlatList, StyleSheet, Modal, TouchableOpacity, Dimensions } from 'react-native'
 import BusinessModal from './BusinessModal';
 import Icon from 'react-native-vector-icons/Ionicons';
+import Icons from 'react-native-vector-icons/Ionicons';
 
 const Width = Dimensions.get('window').width;
+const height = Dimensions.get('window').height;
 export default class MyList extends PureComponent {
     constructor(props){
         super(props);
@@ -16,7 +18,9 @@ export default class MyList extends PureComponent {
             day:'',
             timebd:'',
             timekt:'',
-            mangList:[]
+            mangList:[],
+            letter:0,
+            letterApprove:0
         }
     }
 
@@ -32,6 +36,18 @@ export default class MyList extends PureComponent {
     
       componentDidMount(){
         {this.setState({mangList:this.props.Listmang})}
+        a = 0
+        b = 0
+        this.props.Listmang.map(w=>{
+            return w.approve == 0 ? a++ : a
+        })
+        this.props.Listmang.map(w=>{
+            return w.approve == 1 ? b++ : b
+        })
+        this.setState({
+            letter:a,
+            letterApprove:b
+        })
       }
 
     _refresh=()=>{
@@ -44,8 +60,18 @@ export default class MyList extends PureComponent {
             })
             .then((response)=>response.json()) // Lấy giá trị reponse, =>response.json() ép repose về kiểu json
             .then((res)=>{
+                a = 0
+                b = 0
+                res.work_form.map(w=>{
+                    return w.approve == 0 ? a++ : a
+                })
+                res.work_form.map(w=>{
+                    return w.approve == 1 ? b++ : b
+                })
                 this.setState({
-                    mangList:res.work_form.reverse()
+                    mangList:res.work_form.reverse(),
+                    letter:a,
+                    letterApprove:b
                 })
             })
             .catch((error)=>{
@@ -55,6 +81,16 @@ export default class MyList extends PureComponent {
     render() {
         return (
     <View>
+        <View style={{height: 60, flexDirection:'row', alignItems:'center', backgroundColor:'#d7f6fe'}}>
+                    <View style={{flex:0.5, justifyContent:'center', alignItems:'center', zIndex: 0}}>
+                        <View style={styles.notification}><Text style={{color:'white', fontSize:10}}>{this.state.letter}</Text></View>
+                        <View style={{}}><Text><Icons name="ios-mail" size={32} color='black'/></Text></View>
+                    </View>
+                    <View style={{flex:0.5, justifyContent:'center', alignItems:'center'}}>
+                        <View style={styles.notification}><Text style={{color:'white', fontSize:10}}>{this.state.letterApprove}</Text></View>
+                        <Text><Icons name="ios-checkmark-circle" size={30} color='green'/></Text>
+                    </View>
+        </View>
             <FlatList
             refreshing={this.state.refreshing}
             onRefresh={this._refresh}
@@ -122,8 +158,21 @@ const styles = StyleSheet.create({
         borderLeftWidth:3,
         borderLeftColor:'#05a9d7',
         padding:5,
-        marginTop:10,
+        marginTop:5,
         backgroundColor:'white',
         elevation: 5
+    },
+    notification:{
+        backgroundColor:'red',
+        width: 15,
+        height: 15,
+        borderRadius: 50,
+        borderColor: '#ccc',
+        alignItems:'center',
+        justifyContent:'center',
+        elevation: 8,
+        marginBottom: -14,
+        marginLeft:23,
+        zIndex: 12
     }
 })

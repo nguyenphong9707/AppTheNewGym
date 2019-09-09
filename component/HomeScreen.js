@@ -10,7 +10,6 @@ import {
 } from "react-native";
 import { createStackNavigator, createAppContainer } from "react-navigation";
 import Icon from 'react-native-vector-icons/FontAwesome';
-import Icons from 'react-native-vector-icons/Ionicons';
 import MyList from "./ListForMe/MyList"
 import Members from "./Members/Members";
 import Spinner from 'react-native-spinkit';
@@ -31,8 +30,6 @@ class HomeScreen extends Component {
             Token:'',
             mang:[],
             Loading:true,
-            letter:14,
-            letterApprove:23
         })
     }
 
@@ -49,19 +46,9 @@ class HomeScreen extends Component {
             })
             .then((response)=>response.json()) // Lấy giá trị reponse, =>response.json() ép repose về kiểu json
             .then((res)=>{
-                a = 0
-                b = 0
-                res.work_form.map(w=>{
-                    return w.approve == 0 ? a++ : a
-                })
-                res.work_form.map(w=>{
-                    return w.approve == 1 ? b++ : b
-                })
                 this.setState({
                     mang:res.work_form.reverse(),
-                    Loading:false,
-                    letter:a,
-                    letterApprove:b
+                    Loading:false
                 })
             })
             .catch((error)=>{
@@ -100,16 +87,6 @@ class HomeScreen extends Component {
                     >
                         <Icon name="sign-out" size={20} color='black'/>
                     </TouchableOpacity>
-                </View>
-                <View style={{flex:1, flexDirection:'row', alignItems:'center', backgroundColor:'#d7f6fe'}}>
-                    <View style={{flex:0.5, justifyContent:'center', alignItems:'center', zIndex: 0}}>
-                        <View style={styles.notification}><Text style={{color:'white', fontSize:10}}>{this.state.letter}</Text></View>
-                        <View style={{}}><Text><Icons name="ios-mail" size={32} color='black'/></Text></View>
-                    </View>
-                    <View style={{flex:0.5, justifyContent:'center', alignItems:'center'}}>
-                        <View style={styles.notification}><Text style={{color:'white', fontSize:10}}>{this.state.letterApprove}</Text></View>
-                        <Text><Icons name="ios-checkmark-circle" size={30} color='green'/></Text>
-                    </View>
                 </View>
                 <View style={styles.body}>
                     {
@@ -155,17 +132,4 @@ const styles = StyleSheet.create({
         justifyContent:'center'
 
     },
-    notification:{
-        backgroundColor:'red',
-        width: 15,
-        height: 15,
-        borderRadius: 50,
-        borderColor: '#ccc',
-        alignItems:'center',
-        justifyContent:'center',
-        elevation: 8,
-        marginBottom: -14,
-        marginLeft:23,
-        zIndex: 12
-    }
 });
