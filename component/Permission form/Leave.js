@@ -246,22 +246,12 @@ class Leave extends PureComponent {
                     <Text style={{textAlign:'center', color:'#555859', fontSize:25, marginTop:20, fontWeight: 'bold'}}>Đơn nghỉ phép</Text>
                     </View>
                     <View style={{flex:8, alignItems:'center', paddingTop:30}}>
-                    <View style={{flexDirection:'row'}}>
+                    <View style={{flexDirection:Platform.OS === 'ios'?'column':'row', width:width-50}}>
                         <View>
                         <Text>Từ Ngày:</Text>
-                            <TouchableOpacity
-                                onPress={this._showDatebd}
-                            >
-                                <TextInput
-                                style={{...styles.TextInputTime, marginTop:5}}
-                                placeholder={'2019-01-01'}
-                                placeholderTextColor={'gray'}
-                                onChangeText={(ngaybd) => this.setState({ngaybd})}
-                                value={this.state.ngaybd}
-                                autoCapitalize="none"
-                                editable={false}
-                            />
-                            </TouchableOpacity>
+                        <TouchableOpacity onPress={this._showDatebd}>
+                          <View style={styles.TextInput}><Text style={{marginTop:13, fontSize:15}}>{this.state.ngaybd}</Text></View>
+                        </TouchableOpacity>
                             <DateTimePicker
                                 isVisible={this.state.ShowDayBDVisible}
                                 onConfirm={this._showDateBDConfirm}
@@ -270,21 +260,11 @@ class Leave extends PureComponent {
                                 />
                         </View>
 
-                        <View style={{marginLeft:30}}>
+                        <View style={{marginLeft:Platform.OS === 'ios'? 0 : 30, paddingTop:Platform.OS === 'ios' ? 15: 0}}>
                         <Text>Đến Ngày:</Text>
-                            <TouchableOpacity
-                                onPress={this._showDatekt}
-                            >
-                                <TextInput
-                                style={{...styles.TextInputTime, marginTop:5}}
-                                placeholder={'2019-01-01'}
-                                placeholderTextColor={'gray'}
-                                onChangeText={(ngaykt) => this.setState({ngaykt})}
-                                value={this.state.ngaykt}
-                                autoCapitalize="none"
-                                editable={false}
-                            />
-                            </TouchableOpacity>
+                        <TouchableOpacity onPress={this._showDatekt}>
+                          <View style={styles.TextInput}><Text style={{marginTop:13, fontSize:15}}>{this.state.ngaykt}</Text></View>
+                        </TouchableOpacity>
                             <DateTimePicker
                                 isVisible={this.state.ShowDayKTVisible}
                                 onConfirm={this._showDateKTConfirm}
@@ -362,6 +342,19 @@ const styles = StyleSheet.create({
         backgroundColor:'#d7f6fe',
         justifyContent:'center',
         alignItems:'center'
+    },
+    TextInput:{
+      marginTop:10,
+      height:50,
+      width:Platform.OS === 'ios' ? width - 50 : width - 220,
+      color:'black',
+      backgroundColor:"white",
+      borderBottomWidth:1,
+      borderBottomColor:'#05a9d7',
+      backgroundColor:'rgba(255, 255, 255, 1)',
+      borderRadius:10,
+      paddingLeft:20,
+      height:Platform.OS === 'ios' ? 45: 45,
     },
     TextInputTime:{
         height:Platform.OS === 'ios' ? 45: null,
