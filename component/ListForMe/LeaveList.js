@@ -97,7 +97,12 @@ export default class LeaveList extends PureComponent {
                         <Text><Icon name="ios-checkmark-circle" size={30} color='green'/></Text>
                     </View>
             </View>
-                <FlatList
+            {this.state.mangList.length < 1 ?
+            <View style={{flex:1, alignItems:'center', justifyContent:'center'}}>
+                <Text style={{fontWeight: 'bold', color: 'gray', fontSize:15}}>Chưa có đơn nào được tạo.</Text>
+            </View>
+            :
+            <FlatList
             refreshing={this.state.refreshing}
             onRefresh={this._refresh}
             data={this.state.mangList}
@@ -126,7 +131,7 @@ export default class LeaveList extends PureComponent {
                 </TouchableOpacity>
                     }
                 />
-
+            }
                 <Modal
                     animationType="fade"
                     transparent={true}

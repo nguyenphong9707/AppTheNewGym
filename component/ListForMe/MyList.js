@@ -81,6 +81,11 @@ export default class MyList extends PureComponent {
                         <Text><Icons name="ios-checkmark-circle" size={30} color='green'/></Text>
                     </View>
         </View>
+        {this.state.mangList.length < 1 ?
+            <View style={{flex:1, alignItems:'center', justifyContent:'center'}}>
+                <Text style={{fontWeight: 'bold', color: 'gray', fontSize:15}}>Chưa có đơn nào được tạo.</Text>
+            </View>
+            :
             <FlatList
             refreshing={this.state.refreshing}
             onRefresh={this._refresh}
@@ -110,6 +115,7 @@ export default class MyList extends PureComponent {
                 </TouchableOpacity>
             }
         />
+        }
         <Modal
             animationType="fade"
             transparent={true}
@@ -164,4 +170,4 @@ const styles = StyleSheet.create({
         marginLeft:23,
         zIndex: 12
     }
-})
+}) 
