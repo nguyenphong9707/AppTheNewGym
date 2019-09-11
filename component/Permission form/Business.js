@@ -137,6 +137,10 @@ class Business extends PureComponent {
             Alert.alert(
                 'Thông báo',
                 'Vui lòng điền đầy đủ thông tin')
+        }else if(this.state.checkgiobd.getHours() == this.state.checkgiokt.getHours() && this.state.checkgiobd.getMinutes() == this.state.checkgiokt.getMinutes()){
+            Alert.alert(
+                'Thông báo',
+                'Thời gian không hợp lệ')
         }else if(this.state.checkgiobd.getHours() <= this.state.checkgiokt.getHours()){
             this.setState({Loading:true})
             fetch("http://hr.thenewgym.vn/api/save_wf?token=" + this.state.Token,{

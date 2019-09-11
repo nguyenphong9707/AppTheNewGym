@@ -82,10 +82,12 @@ export default class MyList extends PureComponent {
                     </View>
         </View>
         {this.state.mangList.length < 1 ?
-            <View style={{flex:1, alignItems:'center', justifyContent:'center'}}>
+            <View style={{marginTop:30, alignItems:'center', justifyContent:'center'}}>
                 <Text style={{fontWeight: 'bold', color: 'gray', fontSize:15}}>Chưa có đơn nào được tạo.</Text>
             </View>
-            :
+            :<View>
+            </View>
+        }
             <FlatList
             refreshing={this.state.refreshing}
             onRefresh={this._refresh}
@@ -115,7 +117,6 @@ export default class MyList extends PureComponent {
                 </TouchableOpacity>
             }
         />
-        }
         <Modal
             animationType="fade"
             transparent={true}

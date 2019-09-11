@@ -45,7 +45,8 @@ const Tabbar = createBottomTabNavigator({
 
 },{
   initialRouteName: 'Business',
-  swipeEnabled: true,
+  swipeEnabled:true,
+  animationEnabled:true,
   tabBarOptions: {
       style: {
           backgroundColor: 'white',
@@ -79,11 +80,13 @@ const MemberTabNavi = createBottomTabNavigator({
   },
 },{
   initialRouteName: 'Listmembers',
+  swipeEnabled:true,
+  animationEnabled:true,
   tabBarOptions: {
       style: {
           backgroundColor: 'white',
       },
-      activeTintColor:'#003300'
+      activeTintColor:'#003300',
   }
 });
 
