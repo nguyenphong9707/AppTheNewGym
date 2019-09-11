@@ -178,7 +178,7 @@ class Leave extends PureComponent {
                 'Thông báo',
                 'Vui lòng điền đầy đủ thông tin.'
             )
-        }else if(this.state.checkTimebd > this.state.checkTimekt){
+        }else if(this.state.checkTimebd >= this.state.checkTimekt){
             Alert.alert(
                 'Thông báo',
                 'Thời gian không hợp lệ.'
@@ -187,7 +187,7 @@ class Leave extends PureComponent {
             var params = {
                 Start_date: this.state.ngaybd,
                 End_date:this.state.ngaykt,
-                Leave_type:this.state.lido + this.state.noidungldk,
+                Leave_type:this.state.noidungldk.length > 0 ?this.state.lido + this.state.noidungldk : this.state.lido,
                 Id_replace:this.state.id_member
             };
             var formData = new FormData();
