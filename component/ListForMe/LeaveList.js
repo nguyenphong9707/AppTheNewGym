@@ -56,8 +56,8 @@ export default class LeaveList extends PureComponent {
     }
 
     _refresh = () => {
-        fetch("http://hr.thenewgym.vn/api/leave_form/" + this.state.id + "?token=" + this.state.Token,{
-            method: "GET",
+        fetch("http://hr.thenewgym.vn/api/leave_form/" + this.props.id_user + "?token=" + this.props.Token,{
+            method: "GET", 
             header:{
                 "Accept":"application/json",
                 "Content-Type":"application/json"
@@ -65,10 +65,12 @@ export default class LeaveList extends PureComponent {
             })
             .then((response)=>response.json()) // Lấy giá trị reponse, =>response.json() ép repose về kiểu json
             .then((res)=>{
-                this.setState({ mangList:res.work_form.reverse() })
+                this.setState({
+                    mangList:res.leave_form.reverse()
+                })
             })
             .catch((error)=>{
-                console.log('loi')
+                console.log(error)
             })
     }
 
