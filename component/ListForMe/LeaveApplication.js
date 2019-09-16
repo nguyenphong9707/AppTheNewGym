@@ -40,9 +40,17 @@ class LeaveApplication extends PureComponent {
             })
             .then((response)=>response.json()) // Lấy giá trị reponse, =>response.json() ép repose về kiểu json
             .then((res)=>{
-                this.setState({
-                    mang: res.leave_form.reverse(), 
-                    Loading:false,})
+                if(res.success == false){
+                    this.setState({
+                        mang:[],
+                        Loading:false
+                    })
+                }else{
+                    this.setState({
+                        mang:res.leave_form.reverse(), 
+                        Loading:false
+                    })
+                }
             })
             .catch((error)=>{
                 console.log('loi')

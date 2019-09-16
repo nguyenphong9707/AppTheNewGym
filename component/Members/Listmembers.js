@@ -41,11 +41,19 @@ class Listmembers extends PureComponent {
             })
             .then((response)=>response.json()) // Lấy giá trị reponse, =>response.json() ép repose về kiểu json
             .then((res)=>{
-                this.setState({
-                    mang:res.work_form.reverse(),
-                    id_member:id_member,
-                    Loading:false,
-                })
+                if(res.success == false){
+                    this.setState({
+                        mang:[],
+                        id_member:id_member,
+                        Loading:false,
+                    })
+                }else{
+                    this.setState({
+                        mang:res.work_form.reverse(),
+                        id_member:id_member,
+                        Loading:false,
+                    })
+                }
             })
             .catch((error)=>{
                 console.log(error)
